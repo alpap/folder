@@ -1,11 +1,15 @@
-import { drizzle } from "drizzle-orm/d1";
-import * as schema from "../database/schema";
+import { drizzle } from 'drizzle-orm/better-sqlite3'
+import Database from 'better-sqlite3'
 
-export { sql, eq, and, or } from "drizzle-orm";
-export const tables = schema;
+import * as schema from '../database/schema'
+
+export { sql, eq, and, or } from 'drizzle-orm'
+export const tables = schema
+
+const sqlite = new Database('./data/sqlite.db')
 
 export function useDrizzle() {
-  return drizzle(hubDatabase(), { schema });
+  return drizzle(sqlite, { schema })
 }
 
-export type User = typeof schema.users.$inferSelect;
+export type User = typeof schema.users.$inferSelect
