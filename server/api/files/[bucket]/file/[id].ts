@@ -1,18 +1,18 @@
-import { verifyBucket } from "~~/server/utils/permission";
+import { verifyBucket } from '~~/server/utils/permission'
 
 export default defineEventHandler(async (event) => {
-  const { bucket } = await verifyBucket(event);
-  const { id } = getRouterParams(event);
+  const { bucket } = await verifyBucket(event)
+  const { id } = getRouterParams(event)
 
   if (id) {
-    const file = await getFolder(id);
+    const file = await getFolder(id)
     if (file && file.bucketName === bucket.name) {
-      return file;
+      return file
     }
   } else {
     throw createError({
-      message: "Invalid request",
+      message: 'Invalid request',
       status: 400,
-    });
+    })
   }
-});
+})
